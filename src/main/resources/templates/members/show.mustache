@@ -5,20 +5,20 @@
     <thead>
     <tr>
         <th scope="col">Id</th>
-        <th scope="col">Title</th>
-        <th scope="col">Content</th>
+        <th scope="col">Email</th>
+        <th scope="col">Password</th>
     </tr>
     </thead>
     <tbody>
-    {{#article}}
+    {{#member}}
     <tr>
         <th>{{id}}</th>
-        <td>{{title}}</td>
-        <td>{{content}}</td>
+        <td>{{email}}</td>
+        <td>{{password}}</td>
     </tr>
-    {{/article}}
+    {{/member}}
     </tbody>
 </table>
-<a href="/articles">Go to Article List</a>
+<a href="/members">Go to member list</a>
 
 {{>layouts/footer}}
