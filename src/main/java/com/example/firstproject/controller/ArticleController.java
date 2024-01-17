@@ -61,4 +61,11 @@ public class ArticleController {
         return "/articles/index";
     }
 
+    @GetMapping("/articles/{id}/edit")
+    public String edit(@PathVariable Long id, Model model) {
+        Article articleEntity = articleRepository.findById(id).orElse(null);
+        model.addAttribute("article", articleEntity);
+        return "/articles/edit";
+    }
+
 }
