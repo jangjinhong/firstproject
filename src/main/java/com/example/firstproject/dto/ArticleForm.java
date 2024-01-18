@@ -9,10 +9,11 @@ import lombok.ToString;
 @ToString
 public class ArticleForm {
     // dto 필드명과 뷰의 name 속성값이 일치해야 한다
+    private Long id;
     private String title;
     private String content;
 
     public Article toEntity() {
-        return new Article(null, title, content);
+        return new Article(id, title, content);
     }
 }
