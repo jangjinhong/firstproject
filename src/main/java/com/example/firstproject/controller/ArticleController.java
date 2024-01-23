@@ -89,7 +89,7 @@ public class ArticleController {
         // 1. 삭제할 데이터 갖고오기
         Article deleteEntity = articleRepository.findById(id).orElse(null);
         // 2. DB에서 삭제
-        if(deleteEntity.getId() != null) {
+        if(deleteEntity != null) {
             articleRepository.delete(deleteEntity);
             attribute.addFlashAttribute("msg", "삭제완료!");
         }

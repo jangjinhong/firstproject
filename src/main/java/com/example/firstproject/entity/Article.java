@@ -19,4 +19,11 @@ public class Article {
     private String title;
     @Column
     private String content;
+
+    public void patch(Article article) {
+        if(article.getTitle() != null)  // 갱신할 값이 없으면 기존 데이터 사용
+            this.title = article.title;
+        if(article.getContent() != null) // 즉,  !! null이 아니면 갱신. null이면 기존꺼 사용 !!
+            this.content = article.content;
+    }
 }
