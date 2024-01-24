@@ -23,7 +23,7 @@ public class CoffeeApiController {
     @GetMapping("/api/coffees/{id}")
     public ResponseEntity<Coffee> show(@PathVariable Long id) {
         Coffee coffee = coffeeRepository.findById(id).orElse(null);
-        return (coffee.getId() != null) ? ResponseEntity.status(HttpStatus.BAD_REQUEST).body(coffee) : ResponseEntity.status(HttpStatus.OK).body(null);
+        return (coffee.getId() != null) ? ResponseEntity.status(HttpStatus.OK).body(coffee) : ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
 
     // POST

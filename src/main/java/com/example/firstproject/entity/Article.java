@@ -9,8 +9,7 @@ import lombok.ToString;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
-@Getter
+@Getter @ToString
 public class Article {
     @Id //primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 자동 생성 기능 추가 (숫자가 자동으로 입력됨)
