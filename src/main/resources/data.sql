@@ -26,3 +26,9 @@ INSERT INTO comment(article_id, nickname, body) VALUES(5, '닉네임43', '고죠
 INSERT INTO comment(article_id, nickname, body) VALUES(6, '닉네임41', 'ㅇㅈ;;')
 INSERT INTO comment(article_id, nickname, body) VALUES(6, '닉네임42', '활동음원이 3개가 넘는데 피지컬 앨범 고작하나실화냐?')
 INSERT INTO comment(article_id, nickname, body) VALUES(6, '닉네임43', '은석굿~')
+
+INSERT INTO pizza(name, price) VALUES('페퍼로니 피자', '25900')
+INSERT INTO pizza(name, price) VALUES('불고기 피자', '29900')
+INSERT INTO pizza(name, price) VALUES('고구마 피자', '30900')
+INSERT INTO pizza(name, price) VALUES('포테이토 피자', '27900')
+INSERT INTO pizza(name, price) VALUES('치즈 피자', '23900')
