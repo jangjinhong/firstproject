@@ -1,5 +1,35 @@
 <!-- content -->
-<div>
+<div class="card m-2" id="comments-new">
 
+    <div class="card-body">
+        <!-- 댓글 작성 폼 -->
+        <form>
+            <div class="mb-3">
+                <label class="form-label">닉네임</label>
+                <input type="text" class="form-control" id="new-comments-nickname">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">댓글 내용</label>
+                <textarea type="text" class="form-control" rows="3" id="new-comments-body"></textarea>
+            </div>
+            <!-- hidden input -->
+            {{#article}}
+                <input type="hidden" id="new-comments-article-id" value="{{id}}">
+            {{/article}}
+            <button type="button" class="btn btn-primary" id="comment-create-btn">댓글 작성</button>
+        </form>
+    </div>
 </div>
-
+<script>
+    {
+    const commentCreateBtn = document.querySelector("#comment-create-btn");
+    commentCreateBtn.addEventListener("click", function() {
+        const comment = {
+            nickname: document.querySelector("#new-comments-nickname").value,
+            body: document.querySelector("#new-comments-body").value,
+            articleId: document.querySelector("#new-comments-article-id").value
+        };
+        console.log(comment);
+    });
+}
+</script>
