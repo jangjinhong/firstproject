@@ -31,6 +31,8 @@
                 articleId: document.querySelector("#new-comments-article-id").value
             };
             console.log(comment);
+
+            // REST API 호출
             const url = "/api/articles/" + comment.articleId + "/comments";
             fetch(url, {
                 method: "POST",

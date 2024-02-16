@@ -7,7 +7,11 @@
                 <button type="button"
                         class="btn btn-sm btn-outline-primary"
                         data-bs-toggle="modal"
-                        data-bs-target="#comment-edit-modal">수정</button>
+                        data-bs-target="#comment-edit-modal"
+                        data-bs-id="{{id}}"
+                        data-bs-nickname="{{nickname}}"
+                        data-bs-body="{{body}}"
+                        data-bs-article-id="{{articleId}}">수정</button>
             </div>
             <div class="card-body">
                 {{body}}
@@ -33,11 +37,11 @@
                 <form>
                     <div class="mb-3">
                         <label class="form-label">닉네임</label>
-                        <input type="text" class="form-control" id="edit-comments-nickname">
+                        <input type="text" class="form-control" id="edit-comment-nickname">
                     </div>
                     <div class="mb-3">
                         <label class="form-label">댓글 내용</label>
-                        <textarea type="text" class="form-control" rows="3" id="edit-comments-body"></textarea>
+                        <textarea type="text" class="form-control" rows="3" id="edit-comment-body"></textarea>
                     </div>
                     <!-- hidden input -->
                     <input type="hidden" id="edit-comment-id">
@@ -49,3 +53,50 @@
         </div>
     </div>
 </div>
+
+<!-- model event -->
+<script>
+    {
+        // 모달 요소 선택
+        const commentEditModal = document.querySelector("#comment-edit-modal");
+        commentEditModal.addEventListener("show.bs.modal", function(event) {
+            // 1. 트리거 버튼 선택
+            const triggerBtn = event.relatedTarget;
+
+            // 2. 데이터 가져오기(트리거 버튼을 활용하여 가져오기)
+            const id = triggerBtn.getAttribute("data-bs-id");
+            const nickname = triggerBtn.getAttribute("data-bs-nickname");
+            const body = triggerBtn.getAttribute("data-bs-body");
+            const articleId = triggerBtn.getAttribute("data-bs-article-id");
+
+            // 3. 수정 폼에 데이터 반영(2번에서 가져온 데이터를 모달의 각 폼에 넣어준다)
+            document.querySelector("edit-comment-body").value = body;
+            document.querySelector("edit-comment-nickname").value = nickname;
+            document.querySelector("edit-comment-id").value = id;
+            document.querySelector("edit-comment-article-id").value = articleId;
+        });
+    }
+    {
+        const commentUpdateBtn = document.querySelector("#comment-update-btn");
+        commentUpdateBtn.addEventListener("click", function() {
+            // 수정 댓글 객체 생성
+            const comment = {
+                id: document.querySelector("#edit-comment-id").value,
+                nickname: document.querySelector("#edit-comment-nickname").value,
+                body: document.querySelector("#edit-comment-body").value,
+                article_id: document.querySelector("#edit-comment-article-id").value
+            };
+            console.log(comment);
+
+            // 수정 REST API 호출
+            const url = "/api/comments/" + comment.id;
+            fetch(url, {
+                method: "PATCH",        // patch 요청
+                headers: {              // 전송 데이터 타입 정보(JSON)
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(comment)  //comment 객체를 JSON 문자열로 변경하여 보냄
+            });
+        });
+    }
+</script>
