@@ -37,8 +37,11 @@ public class Comment {
     //non-static -> 대상이 있어야 수정가능: patch()
     public void patch(CommentDto dto) {
         // 예외 발생
-        if(this.id != dto.getId())
+        if(this.id != dto.getId()) {
+            System.out.println("[원본] this.id = " + this.id);
+            System.out.println("[수정대상] dto.getId() = " + dto.getId());
             throw new IllegalArgumentException("댓글 수정 실패! id가 잘못됐습니다.");
+        }
         // 객체 갱신
         if(dto.getNickname() != null)
             this.nickname = dto.getNickname();

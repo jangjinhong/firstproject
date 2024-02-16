@@ -12,7 +12,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Getter @ToString
 public class CommentDto {
-    @JsonProperty("article_id")
+//    @JsonProperty("article_id")
     private Long id;
     private Long articleId;
     private String nickname;

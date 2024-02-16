@@ -52,10 +52,10 @@ public class CommentService {
         target.patch(dto);
 
         // 3. DB에 갱신
-        Comment saved = commentRepository.save(target);
+        Comment updated = commentRepository.save(target);
 
         // 4. 해당 Entity -> dto로 변환하여 리턴
-        return CommentDto.createCommentDto(saved);
+        return CommentDto.createCommentDto(updated);
     }
 
     @Transactional

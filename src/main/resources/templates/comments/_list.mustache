@@ -1,9 +1,10 @@
 <!-- content -->
-<div>
+<div id="comments-list">
     {{#commentDtos}}
         <div class="card m-2" id="comments-{{id}}">
             <div class="card-header">
                 {{nickname}}
+                <!-- Button trigger modal -->
                 <button type="button"
                         class="btn btn-sm btn-outline-primary"
                         data-bs-toggle="modal"
@@ -21,12 +22,12 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="comment-edit-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="comment-edit-modal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5"
-                    id="exampleModalLabel">댓글 수정</h1>
+                <h5 class="modal-title"
+                    id="exampleModalLabel">댓글 수정</h5>
                 <button type="button"
                         class="btn-close"
                         data-bs-dismiss="modal"
@@ -35,17 +36,20 @@
             <div class="modal-body">
                 <!-- 댓글 수정 폼 -->
                 <form>
+                    <!-- 닉네임 -->
                     <div class="mb-3">
                         <label class="form-label">닉네임</label>
                         <input type="text" class="form-control" id="edit-comment-nickname">
                     </div>
+                    <!-- 댓글 본문 -->
                     <div class="mb-3">
                         <label class="form-label">댓글 내용</label>
-                        <textarea type="text" class="form-control" rows="3" id="edit-comment-body"></textarea>
+                        <textarea type="text" class="form-control" rows="3"
+                                  id="edit-comment-body"></textarea>
                     </div>
                     <!-- hidden input -->
-                    <input type="hidden" id="edit-comment-id">
-                    <input type="hidden" id="edit-comment-article-id">
+                    <input type="text" id="edit-comment-id">
+                    <input type="text" id="edit-comment-article-id" >
 
                     <button type="button" class="btn btn-primary" id="comment-update-btn">수정 완료</button>
                 </form>
@@ -59,6 +63,7 @@
     {
         // 모달 요소 선택
         const commentEditModal = document.querySelector("#comment-edit-modal");
+        // 모달 이벤트 감지
         commentEditModal.addEventListener("show.bs.modal", function(event) {
             // 1. 트리거 버튼 선택
             const triggerBtn = event.relatedTarget;
@@ -70,14 +75,16 @@
             const articleId = triggerBtn.getAttribute("data-bs-article-id");
 
             // 3. 수정 폼에 데이터 반영(2번에서 가져온 데이터를 모달의 각 폼에 넣어준다)
-            document.querySelector("edit-comment-body").value = body;
-            document.querySelector("edit-comment-nickname").value = nickname;
-            document.querySelector("edit-comment-id").value = id;
-            document.querySelector("edit-comment-article-id").value = articleId;
+            document.querySelector("#edit-comment-nickname").value = nickname;
+            document.querySelector("#edit-comment-body").value = body;
+            document.querySelector("#edit-comment-id").value = id;
+            document.querySelector("#edit-comment-article-id").value = articleId;
         });
     }
     {
+        // 수정 완료 버튼 선택
         const commentUpdateBtn = document.querySelector("#comment-update-btn");
+        // 클릭 이벤트 처리
         commentUpdateBtn.addEventListener("click", function() {
             // 수정 댓글 객체 생성
             const comment = {
@@ -96,7 +103,14 @@
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(comment)  //comment 객체를 JSON 문자열로 변경하여 보냄
+            }).then(response => {
+                // HTTP 응답 코드에 따른 메시지 출력
+                const msg = (response.ok) ? "댓글이 수정됐습니다." : "댓글 수정 실패..!";
+                alert(msg);
+                // 현재 페이지 새로 고침
+                window.location.reload();
             });
         });
-    }
+}
+
 </script>

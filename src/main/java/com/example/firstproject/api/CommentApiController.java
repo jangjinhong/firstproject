@@ -37,8 +37,9 @@ public class CommentApiController {
     // 댓글 수정
     @PatchMapping("/api/comments/{id}")
     public ResponseEntity<CommentDto> update(@PathVariable Long id, @RequestBody CommentDto dto) {
-        CommentDto commentDto = commentService.update(id, dto);
-        return ResponseEntity.status(HttpStatus.OK).body(commentDto);
+        CommentDto updatedDto = commentService.update(id, dto);
+
+        return ResponseEntity.status(HttpStatus.OK).body(updatedDto);
     }
 
     @DeleteMapping("/api/comments/{id}")
