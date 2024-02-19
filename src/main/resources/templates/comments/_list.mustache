@@ -13,6 +13,9 @@
                         data-bs-nickname="{{nickname}}"
                         data-bs-body="{{body}}"
                         data-bs-article-id="{{articleId}}">수정</button>
+                <button type="button"
+                        class="btn btn-sm btn-outline-danger comment-delete-btn"
+                        data-comment-id="{{id}}">삭제</button>
             </div>
             <div class="card-body">
                 {{body}}
@@ -111,6 +114,42 @@
                 window.location.reload();
             });
         });
-}
+    }
+</script>
 
+<!-- 댓글 삭제 -->
+<script>
+    {
+        const commentDeleteBtns = document.querySelectorAll(".comment-delete-btn");
+
+        commentDeleteBtns.forEach(btn => {
+            btn.addEventListener("click", (event) => {
+                // btn 변수화: 이벤트 발생 요소 선택
+                const commentDeleteBtn = event.target;
+                //삭제할 댓글의 id
+                const commentId = commentDeleteBtn.getAttribute("data-comment-id");
+                console.log(`클릭감지!! ${commentId}번 댓글`);
+
+                // 삭제 REST API 호출
+                const url = `/api/comments/${commentId}`;
+
+                fetch(url, {
+                    method: "DELETE"
+                }).then(response => {
+                    if(!response.ok) {
+                        alert(`댓글 삭제 실패..!`);
+                        return;
+                    }
+                    // 삭제 성공! -> 화면으로부터 댓글 지우고, 메시지 창 띄우기
+                    const target = document.querySelector(`#comments-${commentId}`);
+                    target.remove();
+
+                    const msg = `${commentId}번 댓글 삭제 완료.`;
+                    alert(msg);
+
+                    window.location.reload();
+                });
+            });
+        });
+    }
 </script>
